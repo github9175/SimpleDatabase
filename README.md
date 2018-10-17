@@ -6,6 +6,6 @@ Project 1: Records, Files & Buffers. Finished without debugging
 
 Project 2: Operators. Finished without debugging
 
-Project 3: Query Optimizer. Haven't started yet
+Project 3: Query Optimizer. Finished without debugging
 
 Project 4: Transactions. Haven't started yet
