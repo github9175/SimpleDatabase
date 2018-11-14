@@ -7,6 +7,6 @@
   - related class: IntField implements Field, StringField implements Field
 
 - TupleDesc (describes the schema of a tuple) implements Serializable
-  - Fields: TDItem[](fieldType, fieldName), Field[](data), RecordId
+  - Fields: TDItem[](fieldType, fieldName), Field[](data), RecordId(pageId, tuplenumber)
   - Important method: getSize()(The size (in bytes) of tuples)
   - related class: Type
