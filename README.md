@@ -1,11 +1,11 @@
 # SimpleDatabase
 
-This is a course project for Berkeley: Intro to Database Systems - Fall 2013. See descriptions here, https://sites.google.com/site/cs186fall2013/homeworks.
+##### Class summary:
+- Tuple(Tuple maintains information about the contents of a tuple.)
+class Tuple implements Serializable
+  - Fields:
+TupleDesc(the schema of this tuple), Field[](data), RecordId
+  - Important method:
 
-Project 1: Records, Files & Buffers. Finished without debugging
-
-Project 2: Operators. Finished without debugging
-
-Project 3: Query Optimizer. Finished without debugging
-
-Project 4: Transactions. Haven't started yet
+- TupleDesc
+class TupleDesc implements Serializable
