@@ -1,6 +1,6 @@
 # SimpleDatabase
 
-#### Class summary:
+### Class summary:
 - Tuple (maintains information about the contents of a tuple) implements Serializable
   - Fields: TupleDesc(the schema of this tuple), Field[](data), RecordId(pageId, tuplenumber)
   - related class: IntField implements Field, StringField implements Field
