@@ -16,3 +16,6 @@
   
 - Database (initializes the catalog, the buffer pool, and the log files)
   - Fields: Catalog, BufferPool
+
+- HeapPageId (Unique identifier for HeapPage objects) implements PageId
+  - Fields: tableId, pgNo
