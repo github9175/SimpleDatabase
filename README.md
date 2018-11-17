@@ -19,3 +19,6 @@
 
 - HeapPageId (Unique identifier for HeapPage objects) implements PageId
   - Fields: tableId, pgNo
+  
+- HeapPage (stores data for one page of HeapFiles) implements Page
+  - Fields: HeapPageId, header[], tuples[], tid;
