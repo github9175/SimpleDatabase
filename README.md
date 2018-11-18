@@ -28,3 +28,6 @@
   - Fields: TupleDesc, file;
   - Important method: readPage(pid) from file, writePage(page) into file, insertTuple[access page through bufferpool], deleteTuple[access page through bufferpool], DbFileIterator iterator
   - related class: DbFileIterator
+
+- SeqScan (query all operator) implements DbIterator
+  - Fields: DbFileIterator, tid 
