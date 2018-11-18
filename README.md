@@ -23,3 +23,8 @@
 - HeapPage (stores data for one page of HeapFiles) implements Page
   - Fields: HeapPageId, header[], tuples[], tid;
   - related class: read by HeapFile
+
+- HeapFile implements DbFile
+  - Fields: TupleDesc, file;
+  - Important method: readPage(pid) from file, writePage(page) into file, insertTuple[access page through bufferpool], deleteTuple[access page through bufferpool], DbFileIterator iterator
+  - related class: DbFileIterator
