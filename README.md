@@ -31,3 +31,11 @@
 
 - SeqScan (query all operator) implements DbIterator
   - Fields: DbFileIterator, tid 
+
+- Predicate (compares tuples to a specified Field value) implements Serializable
+  - Fields: fieldnumber, op, Fieldvalue
+  - Important method: filter(Tuple t)
+  
+- JoinPredicate (compares fields of two tuples)
+  - Fields: fieldnumber1, fieldnumber2, op
+  - Important method: filter(Tuple t1, Tuple t2)
