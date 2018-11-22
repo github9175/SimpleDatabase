@@ -39,3 +39,11 @@
 - JoinPredicate (compares fields of two tuples)
   - Fields: fieldnumber1, fieldnumber2, op
   - Important method: filter(Tuple t1, Tuple t2)
+  
+- Filter (an operator that implements a relational select) extends Operator
+  - Fileds: Predicate, DbIterator child
+  - Important method: fetchNext()
+  
+- Join (an operator that implements a relational select) extends Operator
+  - Fileds: JoinPredicate, DbIterator child1, child2
+  - Important method: fetchNext()
