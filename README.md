@@ -47,3 +47,4 @@
 - Join (an operator that implements a relational select) extends Operator
   - Fileds: JoinPredicate, DbIterator child1, child2
   - Important method: fetchNext()
+  - related class: Operator
