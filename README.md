@@ -48,3 +48,11 @@
   - Fileds: JoinPredicate, DbIterator child1, child2
   - Important method: fetchNext()
   - related class: Operator
+
+- IntegerAggregator implements Aggregator
+  - Fields: groupby field, aggregated value, operation
+  - Important method: iterator()
+  
+- StringAggregator implements Aggregator
+  - Fields: groupby field, aggregated value, operation
+  - Important method: iterator()
