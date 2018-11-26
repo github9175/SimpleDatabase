@@ -50,9 +50,12 @@
   - related class: Operator
 
 - IntegerAggregator implements Aggregator
-  - Fields: groupby field, aggregated value, operation
+  - Fields: groupby field, aggregate field, operation
   - Important method: iterator()
   
 - StringAggregator implements Aggregator
-  - Fields: groupby field, aggregated value, operation
+  - Fields: groupby field, aggregate field, operation
   - Important method: iterator()
+  
+- Aggregate extends Operator
+  - Fields: DbIterator, groupby field, aggregate field, operation
