@@ -22,11 +22,12 @@
   
 - HeapPage (stores data for one page of HeapFiles) implements Page
   - Fields: HeapPageId, header[], tuples[], tid;
+  - Important method: insertTuple(call this.isSlotUsed, this.markSlotUsed), deleteTuple(call this.isSlotUsed, this.markSlotUsed)
   - related class: read by HeapFile
 
 - HeapFile implements DbFile
   - Fields: TupleDesc, file;
-  - Important method: readPage(pid) from file, writePage(page) into file, insertTuple[access page through bufferpool], deleteTuple[access page through bufferpool], DbFileIterator iterator
+  - Important method: readPage(pid) from file, writePage(page) into file, insertTuple[access page through bufferpool, call page.insertTuple, page.markDirty], deleteTuple[access page through bufferpool, call page.insertTuple, page.markDirty], DbFileIterator
   - related class: DbFileIterator
 
 - SeqScan (query all operator) implements DbIterator
