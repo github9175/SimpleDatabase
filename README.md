@@ -60,3 +60,9 @@
   
 - Aggregate extends Operator
   - Fields: DbIterator, groupby field, aggregate field, operation
+  
+- Insert extends Operator
+  - Fields: TransactionId, DbIterator, tableid
+
+- Delete extends Operator
+  - Fields: TransactionId, DbIterator
