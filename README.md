@@ -22,7 +22,7 @@
   
 - HeapPage (stores data for one page of HeapFiles) implements Page
   - Fields: HeapPageId, header[], tuples[], tid;
-  - Important method: insertTuple(call this.isSlotUsed, this.markSlotUsed), deleteTuple(call this.isSlotUsed, this.markSlotUsed)
+  - Important method: insertTuple(call this.isSlotUsed, this.markSlotUsed), deleteTuple(call this.isSlotUsed, this.markSlotUsed), getPageData()
   - related class: read by HeapFile
 
 - HeapFile implements DbFile
@@ -66,3 +66,7 @@
 
 - Delete extends Operator
   - Fields: TransactionId, DbIterator
+
+- BufferPool
+  - Fields: numPages, LRUCache, lockManager
+  - Important method: flushPage(), evictPage()
