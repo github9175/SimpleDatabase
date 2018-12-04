@@ -1,5 +1,13 @@
 # SimpleDatabase
 
+### Path of query
+
+parser.main() -> parser.start()
+parser.start(): Database.getCatalog().loadSchema(), TableStats.computeStatistics(), processNextStatement();
+processNextStatement(): handleXXXStatement(), query.execute()
+handleQueryStatement(): query.setPhysicalPlan(), query.setLogicalPlan, parseQueryLogicalPlan()
+parseQueryLogicalPlan(): processExpression()
+
 ### Class summary:
 - Tuple (maintains information about the contents of a tuple) implements Serializable
   - Fields: TupleDesc(the schema of this tuple), Field[](data), RecordId(pageId, tuplenumber)
