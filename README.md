@@ -3,9 +3,13 @@
 ### Path of query
 
 parser.main() -> parser.start()
+
 parser.start(): Database.getCatalog().loadSchema(), TableStats.computeStatistics(), processNextStatement();
+
 processNextStatement(): handleXXXStatement(), query.execute()
+
 handleQueryStatement(): query.setPhysicalPlan(), query.setLogicalPlan, parseQueryLogicalPlan()
+
 parseQueryLogicalPlan(): processExpression()
 
 ### Class summary:
