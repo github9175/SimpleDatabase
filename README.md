@@ -86,3 +86,8 @@ parseQueryLogicalPlan(): processExpression()
 - IntHistogram
   - Fields: buckets, min, max, width, data, ntups
   - Important method: addValue(), estimateSelectivity(op, value)
+
+- TableStats
+  - Fields: HashMap<String, Histogram>()
+  - Important method: estimateSelectivity()
+  - Related class: Parser
