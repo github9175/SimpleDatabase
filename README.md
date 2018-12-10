@@ -91,3 +91,8 @@ parseQueryLogicalPlan(): processExpression()
   - Fields: HashMap<String, Histogram>()
   - Important method: estimateSelectivity()
   - Related class: Parser
+
+- JoinOptimizer (ordering a series of joins optimally)
+  - Fields: LogicalPlan p, Vector<LogicalJoinNode> joins
+  - Important method: estimateJoinCost(), estimateJoinCardinality()
+  - Related class: LogicalPlan, LogicalJoinNode
