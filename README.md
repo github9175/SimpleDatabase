@@ -94,5 +94,5 @@ parseQueryLogicalPlan(): processExpression()
 
 - JoinOptimizer (ordering a series of joins optimally)
   - Fields: LogicalPlan p, Vector<LogicalJoinNode> joins
-  - Important method: estimateJoinCost(), estimateJoinCardinality()
-  - Related class: LogicalPlan, LogicalJoinNode
+  - Important method: estimateJoinCost(), estimateJoinCardinality(), orderJoins()
+  - Related class: LogicalPlan, LogicalJoinNode, PlanCache, CostCard
