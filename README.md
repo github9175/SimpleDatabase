@@ -81,7 +81,7 @@ parseQueryLogicalPlan(): processExpression()
 
 - BufferPool
   - Fields: numPages, LRUCache, lockManager
-  - Important method: flushPage(), evictPage()
+  - Important method: getPage(), flushPage(), evictPage()
 
 - IntHistogram
   - Fields: buckets, min, max, width, data, ntups
