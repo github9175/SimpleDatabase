@@ -73,7 +73,7 @@ public class BufferPool {
                 transactions.put(tid, t);
 
             }
-                
+                //acquire locks and detect deadlocks.
                 boolean res = lockManager.acquireLock(pid, tid, perm);
 
                 while(!res){
@@ -98,6 +98,7 @@ public class BufferPool {
             
         }
 
+        //get pages from LRU
         return cache.get(pid);
             
     }
@@ -157,7 +158,7 @@ public class BufferPool {
         }else{
 
             try{
-
+                //restore pages in caches
                 if(lockManager.tdReadLocks.get(tid) != null){
 
                     for (PageId pid : lockManager.tdReadLocks.get(tid)){
@@ -190,7 +191,7 @@ public class BufferPool {
 
             }
         }
-
+        //release all related locks
         lockManager.releaseTid(tid);
     }
 
@@ -237,7 +238,7 @@ public class BufferPool {
 
         f.deleteTuple(tid, t);
 
-        //marked and cached in heapfile.deleteTuuple
+        //marked and cached in heapfile.deleteTuple
 
     }
 
@@ -337,11 +338,11 @@ public class BufferPool {
     }
 
     public class LRUCache {
-
-    private volatile Map<PageId, Node> ca;
+    //a linked list of pages
+    private volatile Map<PageId, Node> ca; //pageId to pages
     private volatile Node head;
     private volatile Node tail;
-    private volatile int c;
+    private volatile int c; //capacity
 
     public LRUCache(int capacity) {
 
@@ -363,7 +364,7 @@ public class BufferPool {
 
     }
 
-    public Page get(PageId pid) throws DbException {
+    public Page get(PageId pid) throws DbException {//get from cache or from disk, move it to the tail
 
         Node node = this.ca.get(pid);
 
@@ -389,7 +390,7 @@ public class BufferPool {
         
     }
 
-    public Page access(PageId pid) {
+    public Page access(PageId pid) {//get pages
 
         Node node = this.ca.get(pid);
 
@@ -405,7 +406,7 @@ public class BufferPool {
     }
        
     
-    public void put(PageId pid, Page page) throws DbException {
+    public void put(PageId pid, Page page) throws DbException {//put pages to the tail and evict undirty pages if it is full.
 
         Node node = new Node(pid, page);
 
@@ -424,7 +425,7 @@ public class BufferPool {
         ca.put(pid,node);
     }
     
-    public void remove(Node node){
+    public void remove(Node node){//removes page node from the linked list
 
         if(node == null) return;
 
@@ -473,7 +474,7 @@ public class BufferPool {
     
 }
 
-public class Node {
+public class Node {//linked list node of pages
         private volatile Node prev;
         private volatile Node next;
         private volatile PageId pid;
@@ -485,7 +486,7 @@ public class Node {
         }
 
     }
-private class LockManager {
+private class LockManager {//read and write locks of pages to tid, tid to pages
 
         private Map<PageId, Set<TransactionId>> pageReadLocks;
 
@@ -546,7 +547,6 @@ private class LockManager {
                 }
 
             }
-            
         
             for (PageId pid : pageReadLocks.keySet()) {
 

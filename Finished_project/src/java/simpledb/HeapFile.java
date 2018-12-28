@@ -147,7 +147,7 @@ public class HeapFile implements DbFile {
             i++;
             
         }
-
+        //no empty slots in previous pages, add a new page and write to disk
         if (i == numPages()) {
 
             pid = new HeapPageId(getId(), numPages());
@@ -206,7 +206,7 @@ public class HeapFile implements DbFile {
             this.tid = tid;
 
         }
-
+        //tuples iterator in a page
         public Iterator<Tuple> pageIterator(HeapPageId pid) throws TransactionAbortedException, DbException{
 
             HeapPage page = (HeapPage) Database.getBufferPool().getPage(this.tid, pid, Permissions.READ_ONLY);
@@ -240,7 +240,7 @@ public class HeapFile implements DbFile {
                 return true;
 
             }else{
-
+                //turn to the next page
                 pagePos++;
 
                 while (pagePos < numPages()){
