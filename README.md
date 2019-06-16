@@ -1,98 +1,86 @@
-# SimpleDatabase
+# Simple Database
 
-### Path of query
+## Introduction
+This is a basic database management system called SimpleDB, a course project taken from Berkeley CS deparment's Intro to Database System (https://sites.google.com/site/cs186fall2013/homeworks). It provides several basic functions like a buffer pool, a query optimizor and transaction locks.
 
-parser.main() -> parser.start()
+## Architecture
+SimpleDB consists of:
 
-parser.start(): Database.getCatalog().loadSchema(), TableStats.computeStatistics(), processNextStatement();
+Classes that represent fields, tuples, and tuple schemas;
+Classes that apply predicates and conditions to tuples;
+One or more access methods (e.g., heap files) that store relations on disk and provide a way to iterate through tuples of those relations;
+A collection of operator classes (e.g., select, join, insert, delete, etc.) that process tuples;
+A buffer pool that caches active tuples and pages in memory and handles concurrency control and transactions (neither of which you need to worry about for this project); and,
+A catalog that stores information about available tables and their schemas.
+SimpleDB does not include many things that you may think of as being a part of a "database."
+A simple parser.
+A Query optimizer.
 
-processNextStatement(): handleXXXStatement(), query.execute()
+In particular, SimpleDB does not have:
 
-handleQueryStatement(): query.setPhysicalPlan(), query.setLogicalPlan, parseQueryLogicalPlan()
+Views.
+Data types except integers and fixed length strings.
+Indices.
 
-parseQueryLogicalPlan(): processExpression()
+## Deployment
+SimpleDB uses the Ant build tool to compile the code and run tests. The build file is xx.
 
-### Class summary:
-- Tuple (maintains information about the contents of a tuple) implements Serializable
-  - Fields: TupleDesc(the schema of this tuple), Field[](data), RecordId(pageId, tuplenumber)
-  - related class: IntField implements Field, StringField implements Field
+You can create any .txt file and convert it to a .dat file in SimpleDB's HeapFile format using the command:
 
-- TupleDesc (describes the schema of a tuple) implements Serializable
-  - Fields: TDItem[](fieldType, fieldName)
-  - Important method: getSize()(The size (in bytes) of tuples)
-  - related class: Type
+$ java -jar dist/simpledb.jar convert file.txt N
+where file.txt is the name of the file and N is the number of columns in the file. Notice that file.txt has to be in the following format:
+int1,int2,...,intN
+int1,int2,...,intN
+int1,int2,...,intN
+int1,int2,...,intN
+...where each intN is a non-negative integer.
 
-- Catalog (keeps track of all available tables in the database and their associated schemas)
-  - Fields: id2file, id2name, id2pkeyField, name2id
-  - related class: contains DbFile, in Database
-  
-- Database (initializes the catalog, the buffer pool, and the log files)
-  - Fields: Catalog, BufferPool
+To view the contents of a table, use the print command:
 
-- HeapPageId (Unique identifier for HeapPage objects) implements PageId
-  - Fields: fileId, pgNo
-  
-- HeapPage (stores data for one page of HeapFiles) implements Page
-  - Fields: HeapPageId, header[], tuples[], tid;
-  - Important method: insertTuple(call this.isSlotUsed, this.markSlotUsed), deleteTuple(call this.isSlotUsed, this.markSlotUsed), getPageData()
-  - related class: read by HeapFile
+$ java -jar dist/simpledb.jar print file.dat N
+where file.dat is the name of a table created with the convert command, and N is the number of columns in the file.
+## Testing
+To run the unit tests use the test build target:
 
-- HeapFile implements DbFile
-  - Fields: TupleDesc, file;
-  - Important method: readPage(pid) from file, writePage(page) into file, insertTuple[access page through bufferpool, call page.insertTuple, page.markDirty], deleteTuple[access page through bufferpool, call page.insertTuple, page.markDirty], DbFileIterator
-  - related class: DbFileIterator
+$ cd CS186-proj1
+$ # run all unit tests
+$ ant test
+$ # run a specific unit test
+$ ant runtest -Dtest=TupleTest
 
-- SeqScan (query all operator) implements DbIterator
-  - Fields: DbFileIterator, tid 
+If you wish to write new unit tests as you code, they should be added to the test/simpledb directory.
 
-- Predicate (compares tuples to a specified Field value) implements Serializable
-  - Fields: fieldnumber, op, Fieldvalue
-  - Important method: filter(Tuple t)
-  
-- JoinPredicate (compares fields of two tuples)
-  - Fields: fieldnumber1, fieldnumber2, op
-  - Important method: filter(Tuple t1, Tuple t2)
-  
-- Filter (an operator that implements a relational select) extends Operator
-  - Fileds: Predicate, DbIterator child
-  - Important method: fetchNext()
-  
-- Join (an operator that implements a relational select) extends Operator
-  - Fileds: JoinPredicate, DbIterator child1, child2
-  - Important method: fetchNext()
-  - related class: Operator
+For more details about how to use Ant, see the manual(http://ant.apache.org/manual/). The Running Ant(http://ant.apache.org/manual/running.html) section provides details about using the ant command. However, the quick reference table below should be sufficient for working on the projects.
 
-- IntegerAggregator implements Aggregator
-  - Fields: groupby field, aggregate field, operation
-  - Important method: iterator()
-  
-- StringAggregator implements Aggregator
-  - Fields: groupby field, aggregate field, operation
-  - Important method: iterator()
-  
-- Aggregate extends Operator
-  - Fields: DbIterator, groupby field, aggregate field, operation
-  
-- Insert extends Operator
-  - Fields: TransactionId, DbIterator, tableid
+Command	Description
+ant	Build the default target (for simpledb, this is dist).
+ant -projecthelp	List all the targets in build.xml with descriptions.
+ant dist	Compile the code in src and package it in dist/simpledb.jar.
+ant test	Compile and run all the unit tests.
+ant runtest -Dtest=testname	Run the unit test named testname.
+ant systemtest	Compile and run all the system tests.
+ant runsystest -Dtest=testname	Compile and run the system test named testname.
+ant handin	Generate tarball for submission.
 
-- Delete extends Operator
-  - Fields: TransactionId, DbIterator
+End-to-end tests are structured as JUnit tests that live in the test/simpledb/systemtest directory. 
 
-- BufferPool
-  - Fields: numPages, LRUCache, lockManager
-  - Important method: getPage(), flushPage(), evictPage()
+To run all the system tests, use the systemtest build target:
 
-- IntHistogram
-  - Fields: buckets, min, max, width, data, ntups
-  - Important method: addValue(), estimateSelectivity(op, value)
+$ ant systemtest
 
-- TableStats
-  - Fields: HashMap<String, Histogram>()
-  - Important method: estimateSelectivity()
-  - Related class: Parser
+ When the tests pass, you will see something like the following:
 
-- JoinOptimizer (ordering a series of joins optimally)
-  - Fields: LogicalPlan p, Vector<LogicalJoinNode> joins
-  - Important method: estimateJoinCost(), estimateJoinCardinality(), orderJoins(), computeCostAndCardOfSubplan()
-  - Related class: LogicalPlan, LogicalJoinNode(represents a join of two tables), PlanCache(cache the best way to join a subset of the joins), CostCard(specifying the cost and cardinality of the optimal plan)
+$ ant systemtest
+
+# ... build output ...
+
+    [junit] Testsuite: simpledb.systemtest.ScanTest
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 7.278 sec
+    [junit] Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 7.278 sec
+    [junit] 
+    [junit] Testcase: testSmall took 0.937 sec
+    [junit] Testcase: testLarge took 5.276 sec
+    [junit] Testcase: testRandom took 1.049 sec
+
+BUILD SUCCESSFUL
+Total time: 52 seconds
