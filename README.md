@@ -6,21 +6,21 @@ This is a basic database management system called SimpleDB, a course project tak
 ## Architecture
 SimpleDB consists of:
 
-Classes that represent fields, tuples, and tuple schemas;
-Classes that apply predicates and conditions to tuples;
-One or more access methods (e.g., heap files) that store relations on disk and provide a way to iterate through tuples of those relations;
-A collection of operator classes (e.g., select, join, insert, delete, etc.) that process tuples;
-A buffer pool that caches active tuples and pages in memory and handles concurrency control and transactions (neither of which you need to worry about for this project); and,
-A catalog that stores information about available tables and their schemas.
-SimpleDB does not include many things that you may think of as being a part of a "database."
-A simple parser.
-A Query optimizer.
+* Classes that represent fields, tuples, and tuple schemas;
+* Classes that apply predicates and conditions to tuples;
+* One or more access methods (e.g., heap files) that store relations on disk and provide a way to iterate through tuples of those relations;
+* A collection of operator classes (e.g., select, join, insert, delete, etc.) that process tuples;
+* A buffer pool that caches active tuples and pages in memory and handles concurrency control and transactions (neither of which you need to worry about for this project); and,
+* A catalog that stores information about available tables and their schemas.
+* SimpleDB does not include many things that you may think of as being a part of a "database."
+* A simple parser.
+* A Query optimizer.
 
 In particular, SimpleDB does not have:
 
-Views.
-Data types except integers and fixed length strings.
-Indices.
+* Views.
+* Data types except integers and fixed length strings.
+* Indices.
 
 ## Deployment
 SimpleDB uses the Ant build tool to compile the code and run tests. The build file is xx.
