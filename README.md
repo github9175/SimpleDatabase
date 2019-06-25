@@ -47,13 +47,14 @@ where file.dat is the name of a table created with the convert command, and N is
 
 A query parser is provided for SimpleDB that you can use to write and run SQL queries against your database.
 The first step is to create some data tables and a catalog. Suppose you have a file data.txt with the following contents:
-
+```{r}
 1,10
 2,20
 3,30
 4,40
 5,50
 5,50
+```
 You can convert this into a SimpleDB table using the convert command:
 ```{r}
 java -jar dist/simpledb.jar convert data.txt 2 "int,int"
