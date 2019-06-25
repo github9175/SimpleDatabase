@@ -23,24 +23,29 @@ In particular, SimpleDB does not have:
 * Indices.
 
 ## Deployment
-SimpleDB uses the Ant build tool to compile the code and run tests. The build file is xx.
+SimpleDB uses the Ant build tool to compile the code and run tests.
 
 You can create any .txt file and convert it to a .dat file in SimpleDB's HeapFile format using the command:
-
+```{r}
 $ java -jar dist/simpledb.jar convert file.txt N
+```
+
 where file.txt is the name of the file and N is the number of columns in the file. Notice that file.txt has to be in the following format:
+```{r}
 int1,int2,...,intN
 int1,int2,...,intN
 int1,int2,...,intN
 int1,int2,...,intN
+```
 ...where each intN is a non-negative integer.
 
 To view the contents of a table, use the print command:
-
+```{r}
 $ java -jar dist/simpledb.jar print file.dat N
+```
 where file.dat is the name of a table created with the convert command, and N is the number of columns in the file.
 
-We've provided you with a query parser for SimpleDB that you can use to write and run SQL queries against your database once you have completed the exercises in this project.
+A query parser is provided for SimpleDB that you can use to write and run SQL queries against your database.
 The first step is to create some data tables and a catalog. Suppose you have a file data.txt with the following contents:
 
 1,10
@@ -49,20 +54,28 @@ The first step is to create some data tables and a catalog. Suppose you have a f
 4,40
 5,50
 5,50
-You can convert this into a SimpleDB table using the convert command (make sure to type ant first!):
+You can convert this into a SimpleDB table using the convert command:
+```{r}
 java -jar dist/simpledb.jar convert data.txt 2 "int,int"
+```
+
 This creates a file data.dat. In addition to the table's raw data, the two additional parameters specify that each record has two fields and that their types are int and int.
 Next, create a catalog file, catalog.txt, with the follow contents:
-
+```{r}
 data (f1 int, f2 int)
+```
 This tells SimpleDB that there is one table, data (stored in data.dat) with two integer fields named f1 and f2.
-Finally, invoke the parser. You must run java from the command line (ant doesn't work properly with interactive targets.) From the simpledb/ directory, type:
-
+Finally, invoke the parser. You must run java from the command line. From the simpledb/ directory, type:
+```{r}
 java -jar dist/simpledb.jar parser catalog.txt
+```
 You should see output like:
+```{r}
 Added table : data with schema INT(f1), INT(f2), 
 SimpleDB> 
+```
 Finally, you can run a query:
+```{r}
 SimpleDB> select d.f1, d.f2 from data d;
 Started a new transaction tid = 1221852405823
  ADDING TABLE d(data) TO tableMap
@@ -79,38 +92,39 @@ Started a new transaction tid = 1221852405823
 0.16 seconds
 
 SimpleDB> 
+```
 
 ## Testing
-To run the unit tests use the test build target:
+We use ant for testing. For more details about how to use Ant, see the manual(http://ant.apache.org/manual/). The Running Ant(http://ant.apache.org/manual/running.html) section provides details about using the ant command. However, the quick reference table below should be sufficient for working on the projects.
 
-$ cd CS186-proj1
+Command	| Description
+---- | ---
+ant	Build | the default target (for simpledb, this is dist).
+ant -projecthelp	| List all the targets in build.xml with descriptions.
+ant dist	| Compile the code in src and package it in dist/simpledb.jar.
+ant test	| Compile and run all the unit tests.
+ant runtest -Dtest=testname	| Run the unit test named testname.
+ant systemtest	| Compile and run all the system tests.
+ant runsystest -Dtest=testname	| Compile and run the system test named testname.
+
+For example:
+```{r}
 $ # run all unit tests
 $ ant test
 $ # run a specific unit test
 $ ant runtest -Dtest=TupleTest
-
+```
 If you wish to write new unit tests as you code, they should be added to the test/simpledb directory.
-
-For more details about how to use Ant, see the manual(http://ant.apache.org/manual/). The Running Ant(http://ant.apache.org/manual/running.html) section provides details about using the ant command. However, the quick reference table below should be sufficient for working on the projects.
-
-Command	Description
-ant	Build the default target (for simpledb, this is dist).
-ant -projecthelp	List all the targets in build.xml with descriptions.
-ant dist	Compile the code in src and package it in dist/simpledb.jar.
-ant test	Compile and run all the unit tests.
-ant runtest -Dtest=testname	Run the unit test named testname.
-ant systemtest	Compile and run all the system tests.
-ant runsystest -Dtest=testname	Compile and run the system test named testname.
-ant handin	Generate tarball for submission.
 
 End-to-end tests are structured as JUnit tests that live in the test/simpledb/systemtest directory. 
 
 To run all the system tests, use the systemtest build target:
-
+```{r}
 $ ant systemtest
+```
 
- When the tests pass, you will see something like the following:
-
+When the tests pass, you will see something like the following:
+```{r}
 $ ant systemtest
 
 # ... build output ...
@@ -125,3 +139,4 @@ $ ant systemtest
 
 BUILD SUCCESSFUL
 Total time: 52 seconds
+```
