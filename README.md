@@ -1,7 +1,7 @@
 # Simple Database
 
 ## Introduction
-This is a basic database management system called SimpleDB, a course project taken from Berkeley CS deparment's Intro to Database System (https://sites.google.com/site/cs186fall2013/homeworks). It provides several basic functions like a buffer pool, a query optimizer and concurrency control.
+This is a basic database management system called SimpleDB, a course project from Berkeley CS deparment's Intro to Database System (https://sites.google.com/site/cs186fall2013/homeworks). It provides several basic functions like a buffer pool, a query optimizer and concurrency control.
 
 ## Architecture
 SimpleDB consists of:
